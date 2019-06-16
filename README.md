@@ -64,6 +64,7 @@ iex> ExTripcode.parse("User#elixir")
 ## Links
 
 * https://github.com/justinjensen/tripcode
+* https://github.com/Nepeta/tripcode
 * http://www.thefullwiki.org/Tripcode
 * https://www.4chan.org/faq#trip
 
