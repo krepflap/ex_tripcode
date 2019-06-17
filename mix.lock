@@ -1,0 +1,5 @@
+%{
+  "crypt3": {:hex, :crypt3, "1.0.4", "ce5ee4b2b16f9eea7b1793ff73bce987c5f4043118ea384a9f5ee910a4793b32", [:make, :mix], [], "hexpm"},
+  "iconv": {:hex, :iconv, "1.0.10", "fc7de75c0a1fbc1e4ed0c68637ae7464a5dd9eee81710fff26321922d144ecea", [:rebar3], [{:p1_utils, "1.0.13", [hex: :p1_utils, repo: "hexpm", optional: false]}], "hexpm"},
+  "p1_utils": {:hex, :p1_utils, "1.0.13", "176577cafb54a8c2fdc0a7fc62b9a21ab0f66588f4062792cd9e65f3e500bfdb", [:rebar3], [], "hexpm"},
+}
