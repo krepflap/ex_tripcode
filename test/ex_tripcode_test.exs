@@ -19,6 +19,10 @@ defmodule ExTripcodeTest do
       assert ExTripcode.hash("€€€€€€€€€€€€€€€€€€") == "bIffqtgKTg"
     end
 
+    test "should work with short values" do
+      assert ExTripcode.hash("a") == "ZnBI2EKkq."
+    end
+
     test "should work with long values" do
       assert ExTripcode.hash("gV4ZhqkrjBka)GiWi(zKJHYPShVN!^TsG%6Xxo9Q") == "3ps/PcSAjk"
     end
@@ -26,6 +30,10 @@ defmodule ExTripcodeTest do
     test "however, we expect long values to be cut off after 8 chars" do
       assert ExTripcode.hash("gV4Zhqkr") ==
                ExTripcode.hash("gV4ZhqkrjBka)GiWi(zKJHYPShVN!^TsG%6Xxo9Q")
+    end
+
+    test "empty value should give empty result" do
+      assert ExTripcode.hash("") == ""
     end
   end
 end

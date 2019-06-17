@@ -28,7 +28,9 @@ defmodule ExTripcode do
       "H3R1pplX/."
 
   """
+  def hash(""), do: ""
   def hash(input), do: gen_tripcode(input)
+  def hash("", _), do: ""
   def hash(input, salt), do: gen_tripcode(input, salt)
 
   defp calc_salt(input) do
