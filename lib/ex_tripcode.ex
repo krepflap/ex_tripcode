@@ -24,32 +24,69 @@ defmodule ExTripcode do
 
   ## Examples
 
-      iex> ExTripcode.hash("廨A齬ﾙｲb")
-      "sTrIKeleSs"
+      iex> ExTripcode.hash("elixir")
+      "H3R1pplX/."
 
   """
   def hash(input), do: gen_tripcode(input)
   def hash(input, salt), do: gen_tripcode(input, salt)
 
   defp calc_salt(input) do
-    input
+    (input <> "H..")
+    |> String.slice(1..2)
+    |> String.replace(~r/[^\.-z]/, ".")
+    |> String.graphemes()
+    |> Enum.map_join(&salt_replace/1)
+    |> String.pad_trailing(2, <<0>>)
   end
 
   defp gen_tripcode(input) do
-    jis = to_shift_jis(input)
-    salt = calc_salt(jis)
+    converted =
+      input
+      |> to_shift_jis()
+      |> html_escape()
+      |> String.slice(0..7)
 
-    jis
+    salt = calc_salt(converted)
+
+    converted
+    |> String.pad_trailing(8, <<0>>)
     |> Crypt3.crypt(salt)
     |> String.slice(-10..-1)
-    |> String.trim
+    |> String.trim()
   end
 
   defp gen_tripcode(input, salt) do
     input
     |> to_shift_jis()
-    |>
+  end
+
+  defp html_escape(input) do
+    input
+    |> String.replace("&", "&amp;")
+    |> String.replace(~S("), "&quot;")
+    |> String.replace("<", "&lt;")
+    |> String.replace(">", "&gt;")
   end
 
   defp to_shift_jis(input), do: :iconv.convert("utf-8", "shift-jis", input)
+
+  defp salt_replace(char) do
+    case char do
+      ":" -> "A"
+      ";" -> "B"
+      "<" -> "C"
+      "=" -> "D"
+      ">" -> "E"
+      "?" -> "F"
+      "@" -> "G"
+      "[" -> "a"
+      "\\" -> "b"
+      "]" -> "c"
+      "^" -> "d"
+      "_" -> "e"
+      "`" -> "f"
+      _ -> char
+    end
+  end
 end

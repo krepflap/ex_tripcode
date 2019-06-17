@@ -22,7 +22,7 @@ defmodule ExTripcode.MixProject do
   defp deps do
     [
       {:crypt3, "~> 1.0"},
-      {:iconv, "~> 1.0"},
+      {:iconv, "~> 1.0"}
     ]
   end
 end
