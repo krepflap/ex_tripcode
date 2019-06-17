@@ -43,9 +43,9 @@ defmodule ExTripcode do
   defp gen_tripcode(input) do
     converted =
       input
+      |> String.slice(0..7)
       |> to_shift_jis()
       |> html_escape()
-      |> String.slice(0..7)
 
     salt = calc_salt(converted)
 
