@@ -53,7 +53,6 @@ defmodule ExTripcode do
     |> String.pad_trailing(8, <<0>>)
     |> Crypt3.crypt(salt)
     |> String.slice(-10..-1)
-    |> String.trim()
   end
 
   defp gen_tripcode(input, salt) do
