@@ -39,7 +39,6 @@ iex> ExTripcode.hash("elixir")
 Secure Tripcodes work too, just pass in a secret seed:
 
 ```elixir
-iex> seed = "secret"
 iex> ExTripcode.hash("elixir", "secret")
 "KZ1B7o9AtcJD9XQ"
 ```
