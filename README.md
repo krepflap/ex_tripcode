@@ -9,6 +9,9 @@ From [the full wiki](http://www.thefullwiki.org/Tripcode):
 >Futaba Channel-style imageboards. A tripcode is a hashed password by which a
 >person can be identified by others.
 
+*Note*: There exist widely different implementations of tripcodes, this one is
+based on https://github.com/justinjensen/tripcode/
+
 ## Installation
 
 The package can be installed by adding `ex_tripcode` to your list of
