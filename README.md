@@ -33,15 +33,15 @@ Most simple usage:
 
 ```elixir
 iex> ExTripcode.hash("elixir")
-"..."
+"H3R1pplX/."
 ```
 
-Secure Tripcodes work too, just pass in a secret salt:
+Secure Tripcodes work too, just pass in a secret seed:
 
 ```elixir
 iex> salt = "secret"
-iex> ExTripcode.hash("elixir", salt)
-"..."
+iex> ExTripcode.hash("elixir", "secret")
+"KZ1B7o9AtcJD9XQ"
 ```
 
 ### Parsing user strings
@@ -52,16 +52,16 @@ a salt, it will only parse for regular Tripcodes, not Secure Tripcodes.
 ```elixir
 iex> salt = "secret"
 iex> ExTripcode.parse("User#elixir#elixir", salt)
-{user: "User", code: "...", secure: "..."}
+{user: "User", code: "H3R1pplX/.", secure: "KZ1B7o9AtcJD9XQ"}
 
 iex> ExTripcode.parse("User##elixir", salt)
-{user: "User", code: "", secure: "..."}
+{user: "User", secure: "KZ1B7o9AtcJD9XQ"}
 
 iex> ExTripcode.parse("User#elixir", salt)
-{user: "User", code: ""}
+{user: "User", code: "H3R1pplX/."}
 
 iex> ExTripcode.parse("User#elixir")
-{user: "User", code: ""}
+{user: "User", code: "H3R1pplX/."}
 ```
 
 ## Links
