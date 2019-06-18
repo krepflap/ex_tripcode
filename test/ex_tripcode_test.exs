@@ -15,8 +15,14 @@ defmodule ExTripcodeTest do
     test "should work with special chars" do
       assert ExTripcode.hash("廨A齬ﾙｲb") == "sTrIKeleSs"
       assert ExTripcode.hash("エリクサー") == "VTaBo/Ew8o"
+      assert ExTripcode.hash("糯ｫT弓(窶") == "Pants.f1Fk"
+
       assert ExTripcode.hash("$$$$$$$$$$$$$$$$$$") == "dQCqKwAumo"
       assert ExTripcode.hash("€€€€€€€€€€€€€€€€€€") == "bIffqtgKTg"
+    end
+
+    test "should work with html chars" do
+      assert ExTripcode.hash("&elixir") == "Q8CfKxygXk"
     end
 
     test "should work with short values" do
