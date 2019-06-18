@@ -40,11 +40,18 @@ defmodule ExTripcode.Hasher do
   Secure tripcodes are generated as follows:
 
   1. Convert the input to Shift JIS.
-  2. ...
+  2. Create a hash by taking the SHA1 sum of input & the base64 decoded seed.
+  3. Base64 encode this hash.
+  4. Return the first 15 characters.
+
   """
-  def hash(input, salt) do
-    input
-    |> to_shift_jis()
+  def hash(input, seed) do
+    converted = to_shift_jis(input)
+    salt = Base.decode64!(seed, padding: false)
+
+    :crypto.hash(:sha, converted <> salt)
+    |> Base.encode64()
+    |> String.slice(0..14)
   end
 
   defp html_escape(input) do
@@ -72,7 +79,6 @@ defmodule ExTripcode.Hasher do
     |> String.replace(~r/[^\.-z]/, ".")
     |> String.graphemes()
     |> Enum.map_join(&salt_replace/1)
-    |> String.pad_trailing(2, <<0>>)
   end
 
   defp salt_replace(char) do

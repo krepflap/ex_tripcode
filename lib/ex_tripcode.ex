@@ -8,7 +8,7 @@ defmodule ExTripcode do
 
   @doc """
   Takes a string value as input and transforms it into a tripcode.
-  When specifying a salt, we use this to generate a secure tripcode.
+  When specifying a seed, we use this to generate a secure tripcode.
 
   Returns a string containing the tripcode.
 
@@ -17,9 +17,12 @@ defmodule ExTripcode do
       iex> ExTripcode.hash("elixir")
       "H3R1pplX/."
 
+      iex> ExTripcode.hash("elixir", "secret")
+      "KZ1B7o9AtcJD9XQ"
+
   """
   def hash(""), do: ""
   def hash(input), do: Hasher.hash(input)
   def hash("", _), do: ""
-  def hash(input, salt), do: Hasher.hash(input, salt)
+  def hash(input, seed), do: Hasher.hash(input, seed)
 end
