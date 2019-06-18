@@ -81,22 +81,18 @@ defmodule ExTripcode.Hasher do
     |> Enum.map_join(&salt_replace/1)
   end
 
-  defp salt_replace(char) do
-    case char do
-      ":" -> "A"
-      ";" -> "B"
-      "<" -> "C"
-      "=" -> "D"
-      ">" -> "E"
-      "?" -> "F"
-      "@" -> "G"
-      "[" -> "a"
-      "\\" -> "b"
-      "]" -> "c"
-      "^" -> "d"
-      "_" -> "e"
-      "`" -> "f"
-      _ -> char
-    end
-  end
+  defp salt_replace(":"), do: "A"
+  defp salt_replace(";"), do: "B"
+  defp salt_replace("<"), do: "C"
+  defp salt_replace("="), do: "D"
+  defp salt_replace(">"), do: "E"
+  defp salt_replace("?"), do: "F"
+  defp salt_replace("@"), do: "G"
+  defp salt_replace("["), do: "a"
+  defp salt_replace("\\"), do: "b"
+  defp salt_replace("]"), do: "c"
+  defp salt_replace("^"), do: "d"
+  defp salt_replace("_"), do: "e"
+  defp salt_replace("`"), do: "f"
+  defp salt_replace(char), do: char
 end
