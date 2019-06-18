@@ -70,7 +70,16 @@ defmodule ExTripcode do
     |> String.replace(">", "&gt;")
   end
 
-  defp to_shift_jis(input), do: :iconv.convert("utf-8", "shift-jis", input)
+  defp to_shift_jis(input) do
+    input
+    |> String.graphemes()
+    |> Enum.map_join(fn x ->
+      case :iconv.convert("utf-8", "shift-jis", x) do
+        "" -> "?"
+        y -> y
+      end
+    end)
+  end
 
   defp salt_replace(char) do
     case char do
