@@ -4,10 +4,14 @@ defmodule ExTripcode.MixProject do
   def project do
     [
       app: :ex_tripcode,
-      version: "1.0.0-rc0",
+      version: "1.0.0",
       elixir: "~> 1.8",
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      deps: deps(),
+      name: "ExTripcode",
+      desciption: "Elixir library for generating tripcodes",
+      package: package(),
+      source_url: "https://github.com/krepflap/ex_tripcode"
     ]
   end
 
@@ -24,6 +28,14 @@ defmodule ExTripcode.MixProject do
       {:crypt3, "~> 1.0"},
       {:iconv, "~> 1.0"},
       {:credo, "~> 1.0.0", only: [:dev, :test], runtime: false}
+    ]
+  end
+
+  defp package() do
+    [
+      name: "ex_tripcode",
+      licenses: ["MIT"],
+      links: %{"GitHub" => "https://github.com/krepflap/ex_tripcode"}
     ]
   end
 end
