@@ -51,16 +51,16 @@ a seed, it will only parse for regular tripcodes, not secure tripcodes.
 ```elixir
 iex> seed = "secret"
 iex> ExTripcode.parse("User#elixir#elixir", seed)
-{user: "User", code: "H3R1pplX/.", secure: "KZ1B7o9AtcJD9XQ"}
+%{user: "User", code: "H3R1pplX/.", secure: "KZ1B7o9AtcJD9XQ"}
 
 iex> ExTripcode.parse("User##elixir", seed)
-{user: "User", secure: "KZ1B7o9AtcJD9XQ"}
+%{user: "User", secure: "KZ1B7o9AtcJD9XQ"}
 
 iex> ExTripcode.parse("User#elixir", seed)
-{user: "User", code: "H3R1pplX/."}
+%{user: "User", code: "H3R1pplX/."}
 
 iex> ExTripcode.parse("User#elixir")
-{user: "User", code: "H3R1pplX/."}
+%{user: "User", code: "H3R1pplX/."}
 ```
 
 ## Links
