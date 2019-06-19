@@ -1,7 +1,9 @@
 defmodule ExTripcode.Hasher do
   @moduledoc false
 
-  @doc false
+  @doc """
+  Generate regular tripcode.
+  """
   def __hash__(input) do
     converted =
       input
@@ -17,7 +19,9 @@ defmodule ExTripcode.Hasher do
     |> String.slice(-10..-1)
   end
 
-  @doc false
+  @doc """
+  Generate secure tripcode.
+  """
   def __hash__(input, seed) do
     converted = to_shift_jis(input)
     salt = Base.decode64!(seed, padding: false)
