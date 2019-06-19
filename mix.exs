@@ -9,7 +9,7 @@ defmodule ExTripcode.MixProject do
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       name: "ExTripcode",
-      desciption: "Elixir library for generating tripcodes",
+      description: "Elixir library for generating tripcodes",
       package: package(),
       source_url: "https://github.com/krepflap/ex_tripcode"
     ]
