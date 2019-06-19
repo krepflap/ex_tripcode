@@ -20,10 +20,14 @@ dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:ex_tripcode, "~> 0.1.0"},
+    {:ex_tripcode, "~> 1.0"},
   ]
 end
 ```
+
+## Docs
+
+https://hexdocs.pm/ex_tripcode/ExTripcode.html
 
 ## Usage
 
