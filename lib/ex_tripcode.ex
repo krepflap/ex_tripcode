@@ -50,8 +50,8 @@ defmodule ExTripcode do
       %{user: "User", code: "H3R1pplX/."}
 
   """
-  def parse(""), do: {}
+  def parse(""), do: %{user: ""}
   def parse(input), do: Parser.parse(input)
-  def parse("", _), do: {}
+  def parse("", _), do: %{user: ""}
   def parse(input, seed), do: Parser.parse(input, seed)
 end

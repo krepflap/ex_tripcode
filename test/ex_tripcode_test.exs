@@ -71,11 +71,44 @@ defmodule ExTripcodeTest do
     end
   end
 
+  describe "parsing for tripcodes" do
+    test "should work with simple values" do
+      assert_parse("lel#kek", %{user: "lel", code: "l8w9M8R/eY"})
+
+      assert_parse("lel#kek#kek", "secret", %{
+        user: "lel",
+        code: "l8w9M8R/eY",
+        secure: "cbrWSRJ2V3DsBUc"
+      })
+    end
+
+    test "empty values should give expected result" do
+      assert_parse("", %{user: ""})
+      assert_parse("", "secret", %{user: ""})
+      assert_parse("####", %{user: ""})
+      assert_parse("####", "secret", %{user: ""})
+      assert_parse("lel##############lel#kek'", "secret", %{user: "lel"})
+    end
+
+    test "omitting regular tripcode should work as expected" do
+      assert_parse("user##elixir", "secret", %{user: "user", secure: "KZ1B7o9AtcJD9XQ"})
+      assert_parse("##elixir", "secret", %{user: "", secure: "KZ1B7o9AtcJD9XQ"})
+    end
+  end
+
   defp assert_tripcode(input, expected) do
     assert ExTripcode.hash(input) == expected
   end
 
   defp assert_tripcode(input, seed, expected) do
     assert ExTripcode.hash(input, seed) == expected
+  end
+
+  defp assert_parse(input, expected) do
+    assert ExTripcode.parse(input) == expected
+  end
+
+  defp assert_parse(input, seed, expected) do
+    assert ExTripcode.parse(input, seed) == expected
   end
 end

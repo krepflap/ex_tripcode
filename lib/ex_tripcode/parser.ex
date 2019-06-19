@@ -31,7 +31,7 @@ defmodule ExTripcode.Parser do
 
   """
   def parse(input) do
-    [user, password] = String.split(input, "#", parts: 2)
+    [user, password] = input |> String.split("#") |> Enum.slice(0..1)
 
     case password do
       "" -> %{user: user}
@@ -50,7 +50,7 @@ defmodule ExTripcode.Parser do
 
   """
   def parse(input, seed) do
-    case String.split(input, "#", parts: 3) do
+    case input |> String.split("#") |> Enum.slice(0..2) do
       [""] ->
         %{user: ""}
 
@@ -59,6 +59,9 @@ defmodule ExTripcode.Parser do
 
       [user, password] ->
         %{user: user, code: Hasher.hash(password)}
+
+      [user, "", ""] ->
+        %{user: user}
 
       [user, "", secure_password] ->
         %{user: user, secure: Hasher.hash(secure_password, seed)}
