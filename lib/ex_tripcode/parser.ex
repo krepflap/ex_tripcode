@@ -9,7 +9,7 @@ defmodule ExTripcode.Parser do
 
     case password do
       "" -> %{user: user}
-      _ -> %{user: user, code: Hasher.hash(password)}
+      _ -> %{user: user, code: Hasher.__hash__(password)}
     end
   end
 
@@ -23,16 +23,20 @@ defmodule ExTripcode.Parser do
         %{user: user}
 
       [user, password] ->
-        %{user: user, code: Hasher.hash(password)}
+        %{user: user, code: Hasher.__hash__(password)}
 
       [user, "", ""] ->
         %{user: user}
 
       [user, "", secure_password] ->
-        %{user: user, secure: Hasher.hash(secure_password, seed)}
+        %{user: user, secure: Hasher.__hash__(secure_password, seed)}
 
       [user, password, secure_password] ->
-        %{user: user, code: Hasher.hash(password), secure: Hasher.hash(secure_password, seed)}
+        %{
+          user: user,
+          code: Hasher.__hash__(password),
+          secure: Hasher.__hash__(secure_password, seed)
+        }
     end
   end
 end
