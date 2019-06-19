@@ -3,7 +3,7 @@ defmodule ExTripcode.Hasher do
   This module implements the hashing of values to generate tripcodes.
   """
 
-  @doc """
+  @doc ~S"""
   Generate a regular tripcode.
 
   Regular tripcodes are generated as follows:
