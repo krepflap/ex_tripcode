@@ -7,11 +7,11 @@ defmodule ExTripcode do
   1. Convert the input to Shift JIS.
   2. Generate the salt as follows:
      * Take the second and third characters of the string obtained by appending
-        H.. to the end of the input.
-     b. Replace any characters not between . and z with ..
-     c. Replace any of the characters in :;<=>?@[\]^_` with the corresponding
-        character from ABCDEFGabcdef.
-  3. Call the crypt() function with the input and salt.
+       `H..` to the end of the input.
+     * Replace any characters not between `.` and `z` with `.`.
+     * Replace any of the characters in **:;<=>?@[\\]^_\`** with the corresponding
+       character from **ABCDEFGabcdef**.
+  3. Call the `crypt()` function with the input and salt.
   4. Return the last 10 characters. (compressional data harvest)
 
   Secure tripcodes are generated as follows:
@@ -28,7 +28,6 @@ defmodule ExTripcode do
 
   @doc """
   Takes a string value as input and transforms it into a tripcode.
-  When specifying a seed, we use this to generate a secure tripcode.
 
   Returns a string containing the tripcode.
 
@@ -37,20 +36,44 @@ defmodule ExTripcode do
       iex> ExTripcode.hash("elixir")
       "H3R1pplX/."
 
+  """
+  def hash(""), do: ""
+  def hash(input), do: Hasher.__hash__(input)
+
+  @doc """
+  Takes a string value as input, with a secret seed and transforms it into a
+  secure tripcode.
+
+  Returns a string containing the tripcode.
+
+  ## Examples
+
       iex> ExTripcode.hash("elixir", "secret")
       "KZ1B7o9AtcJD9XQ"
 
   """
-  def hash(""), do: ""
-  def hash(input), do: Hasher.__hash__(input)
   def hash("", _), do: ""
   def hash(input, seed), do: Hasher.__hash__(input, seed)
 
   @doc """
-  Parses a user and tripcode string, in the form of "user#tripcode".
+  Parses a user and tripcode string, in the form of `user#tripcode`.
 
-  To also parse for secure tripcodes in the form of "user#tripcode#secure"
-  you need provide a secret seed you store only on the server and keep
+  Returns a map containing key-values for all values that are found.
+
+  Note: The user can be an empty string, this is valid.
+
+  ## Examples
+
+      iex> ExTripcode.parse("User#elixir")
+      %{user: "User", code: "H3R1pplX/."}
+
+  """
+  def parse(""), do: %{user: ""}
+  def parse(input), do: Parser.__parse__(input)
+
+  @doc """
+  Parses for (secure) tripcodes in the form of `user#tripcode#secure`.
+  You need to provide a secret seed you store only on the server and keep
   hidden from your users.
 
   Returns a map containing key-values for all values that are found.
@@ -68,12 +91,7 @@ defmodule ExTripcode do
       iex> ExTripcode.parse("User#elixir", "secret")
       %{user: "User", code: "H3R1pplX/."}
 
-      iex> ExTripcode.parse("User#elixir")
-      %{user: "User", code: "H3R1pplX/."}
-
   """
-  def parse(""), do: %{user: ""}
-  def parse(input), do: Parser.__parse__(input)
   def parse("", _), do: %{user: ""}
   def parse(input, seed), do: Parser.__parse__(input, seed)
 end
