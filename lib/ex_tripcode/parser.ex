@@ -1,36 +1,10 @@
 defmodule ExTripcode.Parser do
-  @moduledoc """
-  This module implements the parsing of user/password strings containing
-  tripcodes.
-
-  It is provided as a convience for parsing your user input.
-
-  Returns a map containing user and tripcode values.
-  """
+  @moduledoc false
 
   alias ExTripcode.Hasher
 
-  @doc """
-  Parse a string for user and tripcode values.
-
-  Everything before the "#" symbol is user, after is the password for the
-  tripcode. We don't check for a second password for secure tripcodes,
-  since no seed was specified.
-
-  Returns a map containing the values user and tripcode.
-
-  Note: The user can be an empty string, this is valid.
-
-  ## Examples
-
-      iex> ExTripcode.Parser.parse("#elixir")
-      %{user: "", code: "H3R1pplX/."}
-
-      iex> ExTripcode.Parser.parse("Joe")
-      %{user: "Joe"}
-
-  """
-  def parse(input) do
+  @doc false
+  def __parse__(input) do
     [user, password] = input |> String.split("#") |> Enum.slice(0..1)
 
     case password do
@@ -39,17 +13,8 @@ defmodule ExTripcode.Parser do
     end
   end
 
-  @doc """
-  Parse a string for user and tripcode values.
-
-  We check for a second password to generate a secure tripcode.
-
-  Returns a map containing the values user and both tripcodes.
-  If the first password was omitted, only the secure tripcode value is
-  returned.
-
-  """
-  def parse(input, seed) do
+  @doc false
+  def __parse__(input, seed) do
     case input |> String.split("#") |> Enum.slice(0..2) do
       [""] ->
         %{user: ""}

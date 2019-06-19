@@ -1,25 +1,8 @@
 defmodule ExTripcode.Hasher do
-  @moduledoc """
-  This module implements the hashing of values to generate tripcodes.
-  """
+  @moduledoc false
 
-  @doc ~S"""
-  Generate a regular tripcode.
-
-  Regular tripcodes are generated as follows:
-
-  1. Convert the input to Shift JIS.
-  2. Generate the salt as follows:
-     a. Take the second and third characters of the string obtained by appending
-        H.. to the end of the input.
-     b. Replace any characters not between . and z with ..
-     c. Replace any of the characters in :;<=>?@[\]^_` with the corresponding
-        character from ABCDEFGabcdef.
-  3. Call the crypt() function with the input and salt.
-  4. Return the last 10 characters. (compressional data harvest)
-
-  """
-  def hash(input) do
+  @doc false
+  def __hash__(input) do
     converted =
       input
       |> String.slice(0..7)
@@ -34,18 +17,8 @@ defmodule ExTripcode.Hasher do
     |> String.slice(-10..-1)
   end
 
-  @doc """
-  Generate a secure tripcode.
-
-  Secure tripcodes are generated as follows:
-
-  1. Convert the input to Shift JIS.
-  2. Create a hash by taking the SHA1 sum of input & the base64 decoded seed.
-  3. Base64 encode this hash.
-  4. Return the first 15 characters.
-
-  """
-  def hash(input, seed) do
+  @doc false
+  def __hash__(input, seed) do
     converted = to_shift_jis(input)
     salt = Base.decode64!(seed, padding: false)
 
