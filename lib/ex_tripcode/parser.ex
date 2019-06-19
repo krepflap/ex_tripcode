@@ -3,7 +3,9 @@ defmodule ExTripcode.Parser do
 
   alias ExTripcode.Hasher
 
-  @doc false
+  @doc """
+  Parse string for user and tripcode password.
+  """
   def __parse__(input) do
     [user, password] = input |> String.split("#") |> Enum.slice(0..1)
 
@@ -13,7 +15,10 @@ defmodule ExTripcode.Parser do
     end
   end
 
-  @doc false
+  @doc """
+  Parse string for user and tripcode passwords, including the one for secure
+  tripcodes.
+  """
   def __parse__(input, seed) do
     case input |> String.split("#") |> Enum.slice(0..2) do
       [""] ->
