@@ -24,6 +24,7 @@ defmodule ExTripcodeTest do
     end
 
     test "should work with special chars" do
+      assert_tripcode("ëéè", "WcOabcjNAM")
       assert_tripcode("廨A齬ﾙｲb", "sTrIKeleSs")
       assert_tripcode("エリクサー", "VTaBo/Ew8o")
       assert_tripcode("糯ｫT弓(窶", "Pants.f1Fk")
