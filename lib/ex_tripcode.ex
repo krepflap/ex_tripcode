@@ -9,8 +9,8 @@ defmodule ExTripcode do
      * Take the second and third characters of the string obtained by appending
        `H..` to the end of the input.
      * Replace any characters not between `.` and `z` with `.`.
-     * Replace any of the characters in **:;<=>?@[\\]^_\`** with the corresponding
-       character from **ABCDEFGabcdef**.
+     * Replace any of the characters in `` :;<=>?@[\]^_` `` with the
+       corresponding character from `ABCDEFGabcdef`.
   3. Call the `crypt()` function with the input and salt.
   4. Return the last 10 characters. (compressional data harvest)
 
